@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f7fb;
+      padding:40px;
+    }
+
+    .box{
+      max-width:600px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      border:1px solid #ddd;
+    }
+
+    h2{
+      margin-bottom:20px;
+    }
+
+    .field{
+      margin-bottom:15px;
+    }
+
+    .field label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:5px;
+    }
+
+    .field input{
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid #ccc;
+    }
+
+    .btn{
+      margin-top:15px;
+      padding:12px;
+      background:#20579f;
+      color:white;
+      border:none;
+      border-radius:10px;
+      width:100%;
+      font-weight:bold;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Edit Profile</h2>
+
+  <form action="/save_profile" method="POST">
+
+    <div class="field">
+      <label>Name</label>
+      <input type="text" name="name" value="{{ user.name }}">
+    </div>
+
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" name="branch" value="{{ user.branch }}">
+    </div>
+
+    <div class="field">
+      <label>Semester</label>
+      <input type="text" name="semester" value="{{ user.semester }}">
+    </div>
+
+    <div class="field">
+      <label>CGPA</label>
+      <input type="text" name="cgpa" value="{{ user.cgpa }}">
+    </div>
+
+    <div class="field">
+      <label>Skills</label>
+      <input type="text" name="skills" value="{{ user.skills }}">
+    </div>
+
+    <div class="field">
+      <label>Subjects</label>
+      <input type="text" name="subjects" value="{{ user.subjects }}">
+    </div>
+
+    <div class="field">
+      <label>Goals</label>
+      <input type="text" name="goals" value="{{ user.goals }}">
+    </div>
+
+    <div class="field">
+      <label>Interests</label>
+      <input type="text" name="interests" value="{{ user.interests }}">
+    </div>
+
+    <div class="field">
+      <label>Profile Image URL</label>
+      <input type="text" name="profile_image" value="{{ user.profile_image }}">
+    </div>
+
+    <button class="btn" type="submit">Save Profile</button>
+
+  </form>
+</div>
+
+</body>
+</html>

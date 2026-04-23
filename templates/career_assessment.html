@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Assessment - CareerGenie AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    :root{
+      --bg:#f4f7fb;
+      --sidebar:#ffffff;
+      --card:#ffffff;
+      --primary:#184f90;
+      --primary-dark:#123f73;
+      --text:#182231;
+      --muted:#6d7b8f;
+      --border:#dbe3ef;
+      --chip-bg:#eef4ff;
+      --chip-active:#184f90;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .app{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      min-height:100vh;
+    }
+
+    .sidebar{
+      background:var(--sidebar);
+      border-right:1px solid var(--border);
+      padding:24px 18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:28px;
+      font-weight:800;
+      margin-bottom:34px;
+      color:var(--primary-dark);
+    }
+
+    .brand-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:#e8f0fb;
+      color:var(--primary);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      border:2px solid #cfe0f8;
+    }
+
+    .side-title{
+      font-size:13px;
+      color:var(--muted);
+      margin:10px 10px 14px;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:var(--text);
+      padding:14px 14px;
+      border-radius:14px;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      transition:.2s ease;
+    }
+
+    .menu a:hover,
+    .menu a.active{
+      background:#edf4ff;
+      color:var(--primary);
+    }
+
+    .profile-box{
+      background:#20263d;
+      color:white;
+      border-radius:18px;
+      padding:16px;
+      margin-top:18px;
+    }
+
+    .profile-row{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .avatar{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#7ec8ff,#ffffff);
+      border:2px solid rgba(255,255,255,.3);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#123f73;
+      font-weight:800;
+    }
+
+    .progress-label{
+      display:flex;
+      justify-content:space-between;
+      font-size:13px;
+      margin-bottom:8px;
+      color:#d8e0f0;
+    }
+
+    .progress{
+      width:100%;
+      height:10px;
+      background:rgba(255,255,255,.15);
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress span{
+      display:block;
+      height:100%;
+      width:72%;
+      background:linear-gradient(90deg,#4ba0ff,#7fc1ff);
+      border-radius:inherit;
+    }
+
+    .main{
+      padding:24px;
+    }
+
+    .topbar{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:18px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .top-links{
+      display:flex;
+      gap:24px;
+      font-weight:600;
+      color:var(--muted);
+      flex-wrap:wrap;
+    }
+
+    .top-links a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:14px 22px;
+      border-radius:14px;
+      font-weight:700;
+      border:2px solid var(--primary);
+      transition:.2s ease;
+      display:inline-block;
+      cursor:pointer;
+      font-family:inherit;
+      font-size:15px;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-outline{
+      color:var(--primary);
+      background:white;
+    }
+
+    .btn-solid{
+      color:white;
+      background:var(--primary);
+    }
+
+    .hero{
+      background:#eef2f8;
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:34px 28px;
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      font-size:40px;
+      line-height:1.1;
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .form-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+    }
+
+    .section-title{
+      font-size:28px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .section-subtitle{
+      color:var(--muted);
+      margin-bottom:24px;
+      font-size:15px;
+    }
+
+    .field{
+      margin-bottom:22px;
+    }
+
+    .field label{
+      display:block;
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      padding:16px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fff;
+      font-size:15px;
+      color:var(--text);
+      outline:none;
+      transition:.2s ease;
+      font-family:inherit;
+    }
+
+    .field textarea{
+      min-height:180px;
+      resize:vertical;
+      line-height:1.6;
+    }
+
+    .field input:focus,
+    .field textarea:focus{
+      border-color:#b5c8e8;
+      box-shadow:0 0 0 4px rgba(24,79,144,.08);
+    }
+
+    .skills-title{
+      font-size:18px;
+      font-weight:800;
+      margin:12px 0 14px;
+      color:var(--primary-dark);
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .chip{
+      border:none;
+      background:var(--chip-bg);
+      color:var(--primary-dark);
+      padding:12px 16px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+      font-family:inherit;
+      font-size:14px;
+    }
+
+    .chip:hover{
+      transform:translateY(-1px);
+      background:#dceaff;
+    }
+
+    .chip.active{
+      background:var(--chip-active);
+      color:white;
+    }
+
+    .small-note{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      margin-top:28px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:900px){
+      .app{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        display:none;
+      }
+
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero h1{
+        font-size:32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">◉</div>
+          <span>CareerGenie AI</span>
+        </div>
+
+        <div class="side-title">Navigation</div>
+
+        <nav class="menu">
+          <a class="active" href="/dashboard">🏠 Dashboard</a>
+          <a href="{{ url_for('profile') }}">👤 My Profile</a>
+          <a href="/career_assessment">📝 Career Assessment</a>
+          <a href="#recommendations">⭐ AI Recommendations</a>
+          <a href="#roadmap">🗺️ Career Roadmap</a>
+          <a href="/saved_careers">🔖 Saved Careers</a>
+          <a href="/job_trends">📈 Job Trends</a>
+        </nav>
+      </div>
+
+      <div class="profile-box">
+        <div class="profile-row">
+          <div class="avatar">
+            {% if user and user.profile_image %}
+              <img src="{{ user.profile_image }}" alt="Profile">
+            {% else %}
+              {{ (user.name[0] if user and user.name else 'U') | upper }}
+            {% endif %}
+          </div>
+          <div>
+            <div style="font-weight:700;">{{ user.name if user and user.name else 'Student Name' }}</div>
+            <div style="font-size:14px;color:#c7d3ea;">
+              {{ user.branch if user and user.branch else 'CSE' }} · {{ user.semester if user and user.semester else 'Semester' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-label">
+          <span>Profile Completeness</span>
+          <span>72%</span>
+        </div>
+        <div class="progress">
+          <span style="width:72%;"></span>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div class="brand" style="font-size:18px; margin:0; color:var(--text);">
+          <div class="brand-icon" style="width:36px; height:36px; font-size:14px;">◉</div>
+          <span>CareerGenie AI</span>
+        </div>
+
+       
+
+        <a class="btn btn-outline" href="/logout">Log Out</a>
+      </div>
+
+      <section class="hero">
+        <h1>Career Assessment</h1>
+        <p>Write your skills, interests, and strengths in one box. You can also click the skill buttons below to add them automatically.</p>
+      </section>
+
+      <section class="form-card">
+        <div class="section-title">Tell Us About Yourself</div>
+        <div class="section-subtitle">Click skills below or type your own. Your result will be generated from this text.</div>
+
+        <form id="careerForm" action="/predict" method="POST">
+          <div class="field">
+            <label for="name_user">Your Name</label>
+            <input type="text" id="name_user" name="name_user" placeholder="Enter your name" required>
+          </div>
+
+          <div class="field">
+            <label for="skills_text">Skills / Interests / Strengths</label>
+            <textarea
+              id="skills_text"
+              name="skills_text"
+              placeholder="Example: I like coding, Python, AI, problem solving, web development, teamwork..."
+              required
+            ></textarea>
+            <div class="small-note">Tip: You can write skills, favourite subjects, hobbies, and career interests here.</div>
+          </div>
+
+          <div class="skills-title">Click to add skills</div>
+
+          <div class="chips">
+
+  <!-- Programming -->
+  <button type="button" class="chip" onclick="addSkill(this, 'python')">Python</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'java')">Java</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'c++')">C++</button>
+
+  <!-- Data Science -->
+  <button type="button" class="chip" onclick="addSkill(this, 'machine learning')">Machine Learning</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'data science')">Data Science</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'pandas')">Pandas</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'numpy')">NumPy</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'statistics')">Statistics</button>
+
+  <!-- AI -->
+  <button type="button" class="chip" onclick="addSkill(this, 'deep learning')">Deep Learning</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'tensorflow')">TensorFlow</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'nlp')">NLP</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'computer vision')">Computer Vision</button>
+
+  <!-- Web -->
+  <button type="button" class="chip" onclick="addSkill(this, 'html')">HTML</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'css')">CSS</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'javascript')">JavaScript</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'react')">React</button>
+
+  <!-- App -->
+  <button type="button" class="chip" onclick="addSkill(this, 'android')">Android</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'kotlin')">Kotlin</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'flutter')">Flutter</button>
+
+  <!-- Cloud -->
+  <button type="button" class="chip" onclick="addSkill(this, 'aws')">AWS</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'azure')">Azure</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'docker')">Docker</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'kubernetes')">Kubernetes</button>
+
+  <!-- Cyber -->
+  <button type="button" class="chip" onclick="addSkill(this, 'cyber security')">Cyber Security</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'ethical hacking')">Ethical Hacking</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'kali linux')">Kali Linux</button>
+
+  <!-- Database -->
+  <button type="button" class="chip" onclick="addSkill(this, 'sql')">SQL</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'mysql')">MySQL</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'dbms')">DBMS</button>
+
+  <!-- UI/UX -->
+  <button type="button" class="chip" onclick="addSkill(this, 'figma')">Figma</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'prototyping')">Prototyping</button>
+
+  <!-- Soft Skills -->
+  <button type="button" class="chip" onclick="addSkill(this, 'communication')">Communication</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'leadership')">Leadership</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'teamwork')">Teamwork</button>
+  <button type="button" class="chip" onclick="addSkill(this, 'management')">Management</button>
+
+</div>
+
+          <div class="actions">
+            <a href="/dashboard" class="btn btn-outline">Cancel</a>
+            <button type="submit" class="btn btn-solid">Get Recommendation</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function addSkill(button, skill) {
+      const textarea = document.getElementById("skills_text");
+      let currentText = textarea.value.trim();
+
+      if (!currentText.toLowerCase().includes(skill.toLowerCase())) {
+        if (currentText === "") {
+          textarea.value = skill;
+        } else {
+          textarea.value = currentText + ", " + skill;
+        }
+      }
+
+      button.classList.toggle("active");
+      textarea.focus();
+    }
+  </script>
+</body>
+</html>

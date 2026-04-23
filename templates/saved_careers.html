@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Careers - CareerGenie AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f4f7fb;
+      --sidebar:#ffffff;
+      --card:#ffffff;
+      --primary:#184f90;
+      --primary-dark:#123f73;
+      --text:#182231;
+      --muted:#6d7b8f;
+      --border:#dbe3ef;
+    }
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+    .app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+    .sidebar{
+      background:var(--sidebar);
+      border-right:1px solid var(--border);
+      padding:24px 18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      font-size:28px;font-weight:800;margin-bottom:34px;color:var(--primary-dark);
+    }
+    .brand-icon{
+      width:42px;height:42px;border-radius:12px;background:#e8f0fb;color:var(--primary);
+      display:grid;place-items:center;font-weight:800;border:2px solid #cfe0f8;
+    }
+    .side-title{
+      font-size:13px;color:var(--muted);margin:10px 10px 14px;
+      text-transform:uppercase;letter-spacing:.05em;
+    }
+    .menu{display:flex;flex-direction:column;gap:8px}
+    .menu a{
+      text-decoration:none;color:var(--text);padding:14px 14px;border-radius:14px;
+      font-weight:600;display:flex;align-items:center;gap:12px;transition:.2s ease;
+    }
+    .menu a:hover,.menu a.active{background:#edf4ff;color:var(--primary)}
+    .profile-box{
+      background:#20263d;color:white;border-radius:18px;padding:16px;margin-top:18px;
+    }
+    .main{padding:24px}
+    .topbar{
+      background:white;border:1px solid var(--border);border-radius:20px;padding:18px 24px;
+      display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px;flex-wrap:wrap;
+    }
+    .btn{
+      text-decoration:none;padding:14px 22px;border-radius:14px;font-weight:700;
+      border:2px solid var(--primary);display:inline-block;
+    }
+    .btn-outline{color:var(--primary);background:white}
+    .hero{
+      background:#eef2f8;border:1px solid var(--border);border-radius:24px;
+      padding:34px 28px;margin-bottom:22px;
+    }
+    .hero h1{font-size:40px;margin-bottom:10px}
+    .hero p{color:var(--muted);font-size:17px}
+    .list{display:flex;flex-direction:column;gap:16px}
+    .card{
+      background:white;border:1px solid var(--border);border-radius:22px;padding:24px;
+    }
+    .career-name{font-size:24px;font-weight:800;color:var(--primary);margin-bottom:8px}
+    .meta{color:var(--muted);font-size:14px;margin-bottom:12px}
+    .text-box{
+      background:#f8fbff;border:1px solid var(--border);border-radius:16px;padding:16px;line-height:1.6;
+    }
+    .empty{
+      background:white;border:1px dashed var(--border);border-radius:22px;padding:28px;color:var(--muted);
+    }
+    @media (max-width:900px){
+      .app{grid-template-columns:1fr}
+      .sidebar{display:none}
+      .hero h1{font-size:32px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">◉</div>
+          <span>CareerGenie AI</span>
+        </div>
+
+        <div class="side-title">Navigation</div>
+        <nav class="menu">
+          <a href="/dashboard">🏠 Dashboard</a>
+          <a href="{{ url_for('profile') }}">👤 My Profile</a>
+          <a href="/career_assessment">📝 Career Assessment</a>
+          <a href="/career_assessment">⭐ AI Recommendations</a>
+          <a href="#roadmap">🗺️ Career Roadmap</a>
+          <a class="active" href="/saved_careers">🔖 Saved Careers</a>
+          <a class="active" href="{{ url_for('job_trends') }}">📈 Job Trends</a>
+         
+        </nav>
+      </div>
+
+      <div class="profile-box">
+        <div style="font-weight:700;">{{ user.name if user and user.name else 'Student Name' }}</div>
+        <div style="font-size:14px;color:#c7d3ea;margin-top:6px;">
+          {{ user.branch if user and user.branch else 'CSE' }} · {{ user.semester if user and user.semester else 'Semester' }}
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="brand" style="font-size:18px; margin:0; color:var(--text);">
+          <div class="brand-icon" style="width:36px; height:36px; font-size:14px;">◉</div>
+          <span>CareerGenie AI</span>
+        </div>
+
+        <a class="btn btn-outline" href="/logout">Log Out</a>
+      </div>
+
+      <section class="hero">
+        <h1>Saved Careers</h1>
+        <p>These are the careers you saved from your AI recommendations.</p>
+      </section>
+
+      {% if careers and careers|length > 0 %}
+      <section class="list">
+        {% for career in careers %}
+        <div class="card">
+          <div class="career-name">{{ career.career_name }}</div>
+          <div class="meta">Confidence: {{ career.confidence }}%</div>
+          <div class="text-box">
+            <strong>Your entered skills/interests:</strong><br>
+            {{ career.entered_text }}
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+      {% else %}
+      <div class="empty">
+        No saved careers yet. Go to Career Assessment, get a recommendation, and save it.
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</body>
+</html>
