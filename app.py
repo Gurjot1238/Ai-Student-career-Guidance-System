@@ -6,8 +6,8 @@ app = Flask(__name__)
 app.secret_key = "mysecretkey"
 
 # Load ML model files
-model = joblib.load("career_model.pkl")
-vectorizer = joblib.load("vectorizer.pkl")
+model = joblib.load("career_model_rf.pkl")
+vectorizer = joblib.load("vectorizer_rf.pkl")
 
 
 def get_db_connection():
